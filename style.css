@@ -1,0 +1,965 @@
+/* การตั้งค่าพื้นฐาน */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Background สุดเท่ */
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); /* ลาย Carbon/Noise */
+    opacity: 0.15;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bg-vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.9) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ===== LOADER ===== */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+.loader-img-main {
+    width: 200px;
+    filter: grayscale(1) brightness(2);
+    margin-bottom: 30px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+.loading-bar {
+    width: 300px;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+}
+
+.loading-bar .fill {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    background: #fff;
+    box-shadow: 0 0 15px #fff;
+    animation: loadingFill 2s forwards ease-in-out;
+}
+
+.loader-text {
+    margin-top: 15px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.5);
+}
+
+@keyframes loadingFill {
+    to { width: 100%; }
+}
+
+/* ===== MAIN CONTENT ===== */
+#main-content {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+header {
+    text-align: center;
+    padding: 100px 20px 60px;
+    background: linear-gradient(to bottom, #111, transparent);
+}
+
+.glitch-text {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: 15px;
+    position: relative;
+    text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75);
+    animation: glitch 500ms infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); }
+    14% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), 0.025em 0.05em 0 rgba(0,0,255,0.75); }
+    15% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+    49% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+    50% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+    99% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+    100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); }
+}
+
+/* ===== CARDS ===== */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+    border-color: #fff;
+    transform: translateY(-10px);
+    background: #fff;
+    color: #000;
+}
+
+.card-img-wrapper {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border: 2px solid #333;
+    padding: 5px;
+    transition: 0.4s;
+}
+
+.card:hover .card-img-wrapper {
+    border-color: #000;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+}
+
+.card h3 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.role {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 3px;
+}
+
+.card a {
+    display: block;
+    margin-top: 25px;
+    padding: 10px;
+    border: 1px solid #444;
+    color: inherit;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+.card:hover a {
+    border-color: #000;
+}
+
+footer {
+    padding: 50px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: #444;
+}
+
+/* ===== SNOW EFFECT ===== */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* เพื่อให้กดปุ่มข้างหลังได้ */
+    z-index: 1; /* อยู่เหนือพื้นหลัง แต่อยู่ใต้ Card */
+}
+
+.snow {
+    position: absolute;
+    top: -10px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+/* สร้างเกล็ดหิมะหลายๆ ขนาดและเวลาตกที่ต่างกัน */
+.snow:nth-child(1) { left: 10%; width: 4px; height: 4px; animation-duration: 10s; animation-delay: 0s; }
+.snow:nth-child(2) { left: 25%; width: 2px; height: 2px; animation-duration: 12s; animation-delay: 1s; }
+.snow:nth-child(3) { left: 40%; width: 5px; height: 5px; animation-duration: 8s; animation-delay: 2s; }
+.snow:nth-child(4) { left: 55%; width: 3px; height: 3px; animation-duration: 15s; animation-delay: 0.5s; }
+.snow:nth-child(5) { left: 70%; width: 4px; height: 4px; animation-duration: 11s; animation-delay: 3s; }
+.snow:nth-child(6) { left: 85%; width: 2px; height: 2px; animation-duration: 9s; animation-delay: 1.5s; }
+.snow:nth-child(7) { left: 15%; width: 3px; height: 3px; animation-duration: 13s; animation-delay: 4s; }
+.snow:nth-child(8) { left: 95%; width: 4px; height: 4px; animation-duration: 10s; animation-delay: 2.5s; }
+.snow:nth-child(9) { left: 50%; width: 2px; height: 2px; animation-duration: 14s; animation-delay: 0s; }
+.snow:nth-child(10) { left: 33%; width: 3px; height: 3px; animation-duration: 11s; animation-delay: 5s; }
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) translateX(50px); /* ตกแบบเอียงๆ นิดหน่อย */
+        opacity: 0;
+    }
+}
+
+
+/* GLITCH LOGO */
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-logo {
+  width: 260px;           /* ปรับขนาดโลโก้ตรงนี้ */
+  filter: brightness(1.1) contrast(1.2);
+  animation: glitchMain 2s infinite;
+}
+
+/* glitch layers */
+.glitch-wrapper::before,
+.glitch-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("logo.png") no-repeat center / contain;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.glitch-wrapper::before {
+  animation: glitchRed 1.5s infinite;
+}
+
+.glitch-wrapper::after {
+  animation: glitchBlue 2s infinite reverse;
+}
+
+@keyframes glitchMain {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitchRed {
+  0% { transform: translate(2px, -1px); clip-path: inset(0 0 70% 0); }
+  50% { transform: translate(-2px, 1px); clip-path: inset(40% 0 20% 0); }
+  100% { transform: translate(2px, -1px); clip-path: inset(0 0 70% 0); }
+}
+
+@keyframes glitchBlue {
+  0% { transform: translate(-2px, 1px); clip-path: inset(60% 0 0 0); }
+  50% { transform: translate(2px, -1px); clip-path: inset(20% 0 40% 0); }
+  100% { transform: translate(-2px, 1px); clip-path: inset(60% 0 0 0); }
+}
+
+
+/* Container ของการ์ด */
+.container {
+    padding: 40px 20px;
+}
+
+/* List ของการ์ด */
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* ปรับขนาดให้เหมาะสม */
+    gap: 20px; /* ระยะห่างระหว่างการ์ด */
+    justify-items: center;
+}
+
+/* Card */
+.card {
+    background: #222;
+    border-radius: 20px;
+    padding: 15px;
+    width: 100%; /* ครองช่องของ grid */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.card-img-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #444;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: background 0.3s;
+}
+
+.card a:hover {
+    background: #666;
+}
+
+.card {
+    position: relative;
+    background: #222;
+    border-radius: 20px;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Glow รอบ card โดยใช้ pseudo-element แต่จะเริ่มเป็นเบา */
+.card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgb(0, 0, 0), rgb(255, 255, 255), rgb(0, 0, 0), rgb(255, 255, 255));
+    background-size: 400% 400%;
+    z-index: 0;
+    opacity: 0;                  /* เริ่มต้นไม่เห็น glow */
+    filter: blur(8px);           /* ทำให้ glow นุ่ม */
+    transition: opacity 0.3s;
+    animation: glow-spin 4s linear infinite;
+}
+
+/* ให้เนื้อหาอยู่ด้านบน glow */
+.card * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover: แสดง glow เมื่อเอาเม้าส์ชี้ */
+.card:hover::before {
+    opacity: 1;  /* ทำให้ glow ปรากฏ */
+    transform: scale(1.05); /* เล็กน้อยเพื่อเน้น effect */
+}
+
+/* Animation ของแสงวิ่งรอบ */
+@keyframes glow-spin {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hover effect card ปกติ */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+
+.card a {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 12px 14px;      /* ทำให้ปุ่มใหญ่ขึ้น */
+    font-size: 13px;          /* ตัวอักษรใหญ่ขึ้น */
+    font-weight: 600;         /* ตัวอักษรหนาขึ้น */
+    background: #444;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 14px;      /* มน ๆ เหมือนเดิม */
+    transition: background 0.3s, transform 0.2s;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+button, a, .card {
+  transition: all 0.3s ease-in-out; /* ทุก property จะเปลี่ยนแบบ smooth */
+}
+
+button:hover, a:hover, .card:hover {
+  transform: scale(1.05); /* ขยายเล็กน้อย */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Body & Smooth Scroll */
+body {
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: #000;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+/* Galaxy Container */
+#galaxy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* ไม่บังเมาส์ */
+  overflow: hidden;
+  z-index: 9999;
+  perspective: 800px; /* 3D perspective */
+}
+
+/* Star Style */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  transform-style: preserve-3d;
+}
+
+#main-content {
+    animation: warpIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes warpIn {
+    0% {
+        transform: scale(1.5) translateY(-100px);
+        filter: blur(20px) brightness(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        filter: blur(0) brightness(1);
+        opacity: 1;
+    }
+}
+
+body {
+    font-family: 'Orbitron', 'Syncopate', sans-serif;
+}
+
+.loading-bar {
+    width: 260px;
+    height: 6px;
+    background: rgba(255,255,255,.12);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, cyan, #0066ff);
+    box-shadow: 0 0 15px cyan;
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
+}
+
+/* MONO SEARCH BAR */
+.search-box.mono {
+  position: relative;
+  width: 340px;
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: all 0.35s ease;
+}
+
+/* Icon */
+.search-box.mono .search-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: all 0.35s ease;
+}
+
+/* Input */
+.search-box.mono input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* Hover */
+.search-box.mono:hover {
+  border-color: #fff;
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.15),
+    inset 0 0 8px rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* Focus */
+.search-box.mono:focus-within {
+  border-color: #fff;
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.35),
+    inset 0 0 12px rgba(255,255,255,0.15);
+}
+
+/* Icon animation */
+.search-box.mono:hover .search-icon,
+.search-box.mono:focus-within .search-icon {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* ICON ROTATE */
+.search-box.mono:hover .search-icon svg,
+.search-box.mono:focus-within .search-icon svg {
+  animation: iconSpin 0.8s linear;
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* SEARCH BAR – EXPAND ON HOVER */
+.search-box.mono {
+  position: relative;
+  width: 280px;              /* ขนาดปกติ */
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition:
+    width 0.45s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* ขยายตอน hover / focus */
+.search-box.mono:hover,
+.search-box.mono:focus-within {
+  width: 380px;              /* ขยาย */
+  border-color: #fff;
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.35),
+    inset 0 0 12px rgba(255,255,255,0.15);
+  transform: translateY(-3px);
+}
+
+/* Icon */
+.search-box.mono .search-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.65;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+/* Icon animation */
+.search-box.mono:hover .search-icon svg,
+.search-box.mono:focus-within .search-icon svg {
+  transform: rotate(360deg) scale(1.2);
+  transition: transform 0.6s ease;
+}
+
+/* Input */
+.search-box.mono input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* ULTRA SMOOTH SEARCH BAR */
+.search-box.mono {
+  position: relative;
+  width: 280px;
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(255,255,255,0.22);
+
+  /* 🔥 Smooth จริง */
+  transition:
+    width 0.65s cubic-bezier(.22,1,.36,1),
+    transform 0.55s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.55s cubic-bezier(.22,1,.36,1),
+    border-color 0.4s ease;
+}
+
+/* ขยาย */
+.search-box.mono:hover,
+.search-box.mono:focus-within {
+  width: 400px;
+  border-color: rgba(255,255,255,0.9);
+
+  transform: translateY(-2px) scale(1.015);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.8),
+    0 0 22px rgba(255,255,255,0.25),
+    inset 0 0 14px rgba(255,255,255,0.12);
+}
+
+/* ICON */
+.search-box.mono .search-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.55;
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(.22,1,.36,1);
+}
+
+/* ICON MOTION */
+.search-box.mono:hover .search-icon svg,
+.search-box.mono:focus-within .search-icon svg {
+  transform: rotate(360deg) scale(1.25);
+  opacity: 1;
+}
+
+/* INPUT */
+.search-box.mono input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+body {
+  background: radial-gradient(circle at top, #111, #000);
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+
+/* Wrapper */
+.stats-wrap.mono {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 18px;
+  padding: 22px;
+  background: linear-gradient(180deg, #0a0a0a, #000);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* Card */
+.stat-card {
+  position: relative;
+  background: rgba(255,255,255,.02);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  transition: all .6s cubic-bezier(.22,1,.36,1);
+}
+
+/* Light sweep */
+.stat-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, rgba(255,255,255,.18), transparent 70%);
+  opacity: .25;
+  transform: rotate(20deg);
+  transition: opacity .6s ease;
+}
+
+.stat-card:hover::before {
+  opacity: .6;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:
+    0 18px 40px rgba(255,255,255,.12),
+    inset 0 0 20px rgba(255,255,255,.08);
+}
+
+/* Text */
+.stat-text h2 {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,.25);
+}
+
+.stat-text h2 span {
+  font-size: 14px;
+  opacity: .65;
+}
+
+.stat-text p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  letter-spacing: .6px;
+  color: rgba(255,255,255,.65);
+}
+
+/* Icon */
+.stat-icon {
+  font-size: 44px;
+  opacity: .12;
+  filter: grayscale(1);
+  transition: transform .6s ease, opacity .6s ease;
+}
+
+.stat-card:hover .stat-icon {
+  transform: rotate(-8deg) scale(1.12);
+  opacity: .28;
+}
+
+body {
+  background: #000;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+
+/* Wrapper */
+.news-wrap {
+  max-width: 1100px;
+  margin: 40px auto;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+/* Header */
+.news-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.news-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.08);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.news-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.news-header span {
+  font-size: 12px;
+  opacity: .6;
+}
+
+/* List */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Item */
+.news-item {
+  display: flex;
+  gap: 16px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 16px;
+  transition: all .45s cubic-bezier(.22,1,.36,1);
+}
+
+.news-item:hover {
+  transform: translateX(6px);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 0 20px rgba(255,255,255,.08);
+}
+
+/* Icon */
+.item-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  opacity: .85;
+}
+
+/* Content */
+.item-content h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.item-content .meta {
+  margin: 4px 0;
+  font-size: 13px;
+  opacity: .7;
+}
+
+.item-content .date {
+  font-size: 11px;
+  opacity: .45;
+}
+
+/* Scrollbar */
+.news-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.news-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.25);
+  border-radius: 10px;
+}
+
+.btn-go {
+  padding: 14px 32px;
+  background: transparent;
+  border: 2px solid #0ff;
+  color: #0ff;
+  font-family: Orbitron, sans-serif;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-go:hover {
+  background: #0ff;
+  color: #000;
+  box-shadow: 0 0 20px #0ff;
+}
+
+
+
+.stats-wrap {
+  width: fit-content;      /* ไม่ให้ยืดเต็มแถว */
+}
+
+.stat-card {
+  width: 520px;            /* ← ปรับความสั้นตรงนี้ */
+  height: auto;
+  padding: 10px 16px;      /* ลดความสูง */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.stats-wrap {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+
+#typing-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    white-space: pre; /* เว้นช่องว่างตามต้นฉบับ */
+    overflow: hidden;
+    border-right: 2px solid #000000; /* เคอร์เซอร์ */
+}
