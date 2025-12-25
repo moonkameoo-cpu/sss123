@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="style.css">
     <title>STEPFIAW | SPACEPC</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Vercel Speed Insights -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
 </head>
 <body>
 
@@ -468,7 +473,7 @@
 // ป้องกันคลิกขวา
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
-    alert('ฟีเจอร์นี้ถูกป้องกันไม่ให้คลิกขวา!');
+    alert('ฟีเจอร์นี้ถูกป้องกัน��ม่ให้คลิกขวา!');
 });
 
 // ป้องกันกด F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
@@ -481,7 +486,7 @@ document.addEventListener('keydown', function(e) {
     // Ctrl+Shift+I (Inspect)
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
         e.preventDefault();
-        alert('ไม่อนุญาตให้ Inspect Element!');
+        alert('ไม่อ���ุญาตให้ Inspect Element!');
     }
     // Ctrl+Shift+J (Console)
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'j') {
@@ -497,6 +502,15 @@ document.addEventListener('keydown', function(e) {
 </script>
 
 
+
+<!-- Vercel Speed Insights -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<!-- Vercel Speed Insights Script -->
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>
